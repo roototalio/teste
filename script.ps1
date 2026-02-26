@@ -1,10 +1,7 @@
-Add-Type -AssemblyName System.Windows.Forms
-
 Add-Type @"
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
 
 public class KeyboardBlocker {
     private static LowLevelKeyboardProc _proc = HookCallback;
@@ -29,7 +26,7 @@ public class KeyboardBlocker {
 
     private static IntPtr HookCallback(
         int nCode, IntPtr wParam, IntPtr lParam) {
-        return (IntPtr)1; // bloqueia todas teclas
+        return (IntPtr)1;
     }
 
     [DllImport("user32.dll")]
@@ -38,7 +35,6 @@ public class KeyboardBlocker {
         IntPtr hMod, uint dwThreadId);
 
     [DllImport("user32.dll")]
-    [return: MarshalAs(UnmanagedType.Bool)]
     private static extern bool UnhookWindowsHookEx(IntPtr hhk);
 
     [DllImport("kernel32.dll")]
@@ -46,7 +42,5 @@ public class KeyboardBlocker {
 }
 "@
 
-# 🔒 bloqueia por 5 segundos (5000 ms)
 [KeyboardBlocker]::Block(5000)
-
 Write-Host "Teclado liberado"
