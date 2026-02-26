@@ -1,3 +1,5 @@
+Add-Type -AssemblyName System.Windows.Forms
+
 Add-Type @"
 using System;
 using System.Diagnostics;
